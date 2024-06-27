@@ -8,20 +8,25 @@ import {
 } from "@/components/ui/tooltip";
 import { useState } from "react";
 
-export function Media({ setStage, stage }) {
+export function Media({ setStage, stage, setFile }) {
   const [media, setMedia] = useState([]);
+  const [files, setFiles] = useState([]);
 
   const handleMediaUpload = (event) => {
-    const files = event.target.files;
+    const selectedFiles = event.target.files;
     const newMedia = [];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+    const newFiles = [];
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      newFiles.push(file);
       if (file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onloadend = () => {
           newMedia.push({ type: "image", src: reader.result });
-          if (newMedia.length === files.length) {
+          if (newMedia.length === selectedFiles.length) {
             setMedia((prevMedia) => [...prevMedia, ...newMedia]);
+            setFiles((prevFiles) => [...prevFiles, ...newFiles]);
           }
         };
         reader.readAsDataURL(file);
@@ -39,8 +44,9 @@ export function Media({ setStage, stage }) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           const thumbnail = canvas.toDataURL("image/png");
           newMedia.push({ type: "video", src: thumbnail });
-          if (newMedia.length === files.length) {
+          if (newMedia.length === selectedFiles.length) {
             setMedia((prevMedia) => [...prevMedia, ...newMedia]);
+            setFiles((prevFiles) => [...prevFiles, ...newFiles]);
           }
           URL.revokeObjectURL(video.src);
         };
@@ -52,6 +58,14 @@ export function Media({ setStage, stage }) {
     setMedia((prevMedia) =>
       prevMedia.filter((_, index) => index !== indexToRemove)
     );
+    setFiles((prevFiles) =>
+      prevFiles.filter((_, index) => index !== indexToRemove)
+    );
+  };
+
+  const handleSubmit = async () => {
+    setFile(files);
+    setStage(stage + 1);
   };
 
   return (
@@ -105,13 +119,7 @@ export function Media({ setStage, stage }) {
           )}
         </div>
       </div>
-      <Button
-        onClick={() => {
-          setStage(stage + 1);
-        }}
-      >
-        Next
-      </Button>
+      <Button onClick={handleSubmit}>Next</Button>
     </div>
   );
 }

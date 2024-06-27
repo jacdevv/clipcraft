@@ -7,10 +7,19 @@ import Image from "next/image";
 import { Styling } from "./styling";
 import { Description } from "./description";
 import { Media } from "./media";
+import axios from "axios";
 
 export default function Home() {
   const [stage, setStage] = useState(1);
   const [imageSrc, setImageSrc] = useState("/writing.jpg");
+
+  const [files, setFiles] = useState([]);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [template, setTemplate] = useState("default");
+  const [duration, setDuration] = useState(5);
+  const [orientation, setOrientation] = useState("landscape");
 
   useEffect(() => {
     if (stage === 1) {
@@ -21,6 +30,39 @@ export default function Home() {
       setImageSrc("/like.jpg");
     }
   }, [stage]);
+
+  useEffect(() => {
+    if (stage == 4) {
+      console.log(title, description, template, duration);
+      const uploadData = async () => {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("template", template);
+        formData.append("duration", duration);
+        formData.append("orientation", orientation);
+        files.forEach((file, index) => {
+          formData.append(`file${index}`, file);
+        });
+
+        const response = await axios.post(
+          "http://localhost:8000/v1/upload-media",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const result = await response.json();
+        console.log(result);
+      };
+
+      uploadData();
+    }
+  }, [stage]);
+
   return (
     <main className="w-screen h-screen grid grid-cols-2">
       <div className="flex flex-col space-y-4 p-10">
@@ -91,9 +133,31 @@ export default function Home() {
             <div className="font-semibold pr-4">Export</div>
           </div>
         </div>
-        {stage == 1 && <Description setStage={setStage} stage={stage} />}
-        {stage == 2 && <Styling setStage={setStage} stage={stage} />}
-        {stage == 3 && <Media setStage={setStage} stage={stage} />}
+        {stage == 1 && (
+          <Description
+            setStage={setStage}
+            stage={stage}
+            setTitle={setTitle}
+            title={title}
+            setDescription={setDescription}
+            description={description}
+          />
+        )}
+        {stage == 2 && (
+          <Styling
+            setStage={setStage}
+            stage={stage}
+            selectedValue={template}
+            setSelectedValue={setTemplate}
+            duration={duration}
+            setDuration={setDuration}
+            orientation={orientation}
+            setOrientation={setOrientation}
+          />
+        )}
+        {stage == 3 && (
+          <Media setStage={setStage} stage={stage} setFile={setFiles} />
+        )}
       </div>
       <div className="grid place-items-center">
         <Image src={imageSrc} alt="Writing" width="800" height="800" />

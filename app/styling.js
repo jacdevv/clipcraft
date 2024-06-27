@@ -1,16 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import clsx from "clsx";
+import { useState } from "react";
 
 const { Label } = require("@/components/ui/label");
 const { RadioGroup, RadioGroupItem } = require("@/components/ui/radio-group");
 
-export function Styling({ setStage, stage }) {
+export function Styling({
+  setStage,
+  stage,
+  selectedValue,
+  setSelectedValue,
+  duration,
+  setDuration,
+  orientation,
+  setOrientation,
+}) {
+  const handleChange = (value) => {
+    setSelectedValue(value);
+  };
+
+  const handleDuration = (value) => {
+    setDuration(value);
+  };
+
+  const handleOrientation = (value) => {
+    setOrientation(value.toLowerCase());
+  };
+
   return (
     <div className="flex flex-col justify-between h-full">
       <div>
         <h1 className="text-2xl font-bold py-4">Select a template</h1>
-        <RadioGroup defaultValue="comfortable">
+        <RadioGroup value={selectedValue} onValueChange={handleChange}>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="default" id="r1" />
             <Label htmlFor="r1" className="text-lg">
@@ -42,12 +64,32 @@ export function Styling({ setStage, stage }) {
             </Label>
           </div>
         </RadioGroup>
+        <h1 className="text-2xl font-bold py-4">Select an orientation</h1>
+        <RadioGroup
+          value={orientation}
+          onValueChange={handleOrientation}
+          className="flex space-x-4"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="default" id="r1" />
+            <Label htmlFor="r1" className="text-lg">
+              Landscape
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="business" id="r4" />
+            <Label htmlFor="r4" className="text-lg">
+              Potrait
+            </Label>
+          </div>
+        </RadioGroup>
         <h1 className="text-2xl font-bold py-4">Pick a duration (Minutes)</h1>
         <div className="flex space-x-4 justify-center items-center">
           <Slider
-            defaultValue={[10]}
+            defaultValue={[5]}
             max={20}
             step={1}
+            onChange={handleDuration}
             className={clsx("flex-shrink")}
           />
         </div>
