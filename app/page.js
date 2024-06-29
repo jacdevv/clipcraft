@@ -7,17 +7,22 @@ import Image from "next/image";
 import { Styling } from "./styling";
 import { Description } from "./description";
 import { Media } from "./media";
+import { Edit } from "./edit";
 import axios from "axios";
+import { Suspense } from "react";
 
 export default function Home() {
   const [stage, setStage] = useState(1);
   const [imageSrc, setImageSrc] = useState("/writing.jpg");
 
+  const [videoUrl, setVideoUrl] = useState("");
+  const [scenes, setScenes] = useState();
+
   const [files, setFiles] = useState([]);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [template, setTemplate] = useState("default");
+  const [template, setTemplate] = useState("promotional");
   const [duration, setDuration] = useState(5);
   const [orientation, setOrientation] = useState("landscape");
 
@@ -33,30 +38,37 @@ export default function Home() {
 
   useEffect(() => {
     if (stage == 4) {
-      console.log(title, description, template, duration);
+      console.info(title, description, template, duration);
       const uploadData = async () => {
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("template", template);
-        formData.append("duration", duration);
-        formData.append("orientation", orientation);
-        files.forEach((file, index) => {
-          formData.append(`file${index}`, file);
-        });
+        try {
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("description", description);
+          formData.append("template", template);
+          formData.append("duration", duration);
+          formData.append("orientation", orientation);
+          files.forEach((file, index) => {
+            formData.append(`file${index}`, file);
+          });
 
-        const response = await axios.post(
-          "http://localhost:8000/v1/upload-media",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+          const response = await axios.post(
+            "http://localhost:8000/v1/upload-media",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
 
-        const result = await response.json();
-        console.log(result);
+          console.log(response.data);
+          setVideoUrl(response.data.signed_url);
+          setScenes(response.data.scenes);
+          setStage(5);
+        } catch (error) {
+          console.error("Error uploading data:", error);
+          // Handle the error appropriately (e.g., show an error message to the user)
+        }
       };
 
       uploadData();
@@ -123,14 +135,14 @@ export default function Home() {
               className={clsx(
                 "rounded-full w-8 h-8 grid place-items-center font-bold",
                 {
-                  "bg-primary text-white": stage == 4,
-                  "bg-slate-100": stage != 4,
+                  "bg-primary text-white": stage == 5,
+                  "bg-slate-100": stage != 5,
                 }
               )}
             >
               4
             </div>
-            <div className="font-semibold pr-4">Export</div>
+            <div className="font-semibold pr-4">Edit</div>
           </div>
         </div>
         {stage == 1 && (
@@ -158,9 +170,27 @@ export default function Home() {
         {stage == 3 && (
           <Media setStage={setStage} stage={stage} setFile={setFiles} />
         )}
+        {stage == 5 && <Edit scenes={scenes} />}
       </div>
-      <div className="grid place-items-center">
-        <Image src={imageSrc} alt="Writing" width="800" height="800" />
+      <div className="my-auto">
+        {stage < 5 && (
+          <div className="grid place-items-center">
+            <Image src={imageSrc} alt="Writing" width="800" height="800" />
+          </div>
+        )}
+        {stage === 5 && (
+          <Suspense fallback={<p>Loading video...</p>}>
+            <iframe
+              src={videoUrl}
+              frameBorder="0"
+              alt="Video generated"
+              allowfullscreen="1"
+              width="600"
+              height="338"
+              className="rounded-lg absolute top-[227px]"
+            />
+          </Suspense>
+        )}
       </div>
     </main>
   );

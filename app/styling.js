@@ -34,7 +34,7 @@ export function Styling({
         <h1 className="text-2xl font-bold py-4">Select a template</h1>
         <RadioGroup value={selectedValue} onValueChange={handleChange}>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="default" id="r1" />
+            <RadioGroupItem value="promotional" id="r1" />
             <Label htmlFor="r1" className="text-lg">
               Promotional
             </Label>
@@ -71,13 +71,13 @@ export function Styling({
           className="flex space-x-4"
         >
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="default" id="r1" />
+            <RadioGroupItem value="landscape" id="r1" />
             <Label htmlFor="r1" className="text-lg">
               Landscape
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="business" id="r4" />
+            <RadioGroupItem value="potrait" id="r4" />
             <Label htmlFor="r4" className="text-lg">
               Potrait
             </Label>
