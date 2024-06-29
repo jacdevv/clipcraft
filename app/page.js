@@ -170,6 +170,11 @@ export default function Home() {
         {stage == 3 && (
           <Media setStage={setStage} stage={stage} setFile={setFiles} />
         )}
+        {stage == 4 && (
+          <div className="pt-8 text-2xl font-semibold">
+            Your video is being generated!
+          </div>
+        )}
         {stage == 5 && <Edit scenes={scenes} />}
       </div>
       <div className="my-auto">

@@ -42,7 +42,23 @@ const Scene = ({ scene, index }) => {
   return (
     <div className="bg-secondary w-full rounded-lg px-8 py-2 pb-6 my-4 mb-6">
       <h1 className="text-xl font-bold py-4 text-primary">Scene {index + 1}</h1>
-      <Image src="/duck.jpg" width="400" height="200" className="rounded-lg" />
+      {scene.type === "stock_photo" ? (
+        <Image
+          src={scene.media_url}
+          width={400}
+          height={200}
+          className="rounded-lg"
+          alt={`Scene ${index + 1}`}
+        />
+      ) : (
+        <video
+          src={scene.media_url}
+          width={400}
+          height={200}
+          className="rounded-lg"
+          controls
+        />
+      )}
       <Textarea className="my-4" defaultValue={scene.script} />
       <div className="flex justify-end space-x-4">
         <Dialog>
