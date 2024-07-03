@@ -26,6 +26,8 @@ export default function Home() {
   const [duration, setDuration] = useState(5);
   const [orientation, setOrientation] = useState("landscape");
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (stage === 1) {
       setImageSrc("/writing.jpg");
@@ -38,21 +40,23 @@ export default function Home() {
 
   useEffect(() => {
     if (stage == 4) {
-      console.info(title, description, template, duration);
+      console.info(title, description, template, duration, orientation);
       const uploadData = async () => {
         try {
+          setLoading(true);
           const formData = new FormData();
           formData.append("title", title);
           formData.append("description", description);
           formData.append("template", template);
           formData.append("duration", duration);
           formData.append("orientation", orientation);
-          files.forEach((file, index) => {
-            formData.append(`file${index}`, file);
+          formData.append("use_stock_media", "true");
+          files.forEach((file) => {
+            formData.append(`media`, file);
           });
 
           const response = await axios.post(
-            "http://localhost:8000/v1/upload-media",
+            "http://127.0.0.1:8000/v1/generate-video",
             formData,
             {
               headers: {
@@ -63,11 +67,12 @@ export default function Home() {
 
           console.log(response.data);
           setVideoUrl(response.data.signed_url);
-          setScenes(response.data.scenes);
+          setScenes(response.data);
+          setLoading(false);
           setStage(5);
         } catch (error) {
           console.error("Error uploading data:", error);
-          // Handle the error appropriately (e.g., show an error message to the user)
+          setStage(6);
         }
       };
 
@@ -167,32 +172,51 @@ export default function Home() {
             setOrientation={setOrientation}
           />
         )}
-        {stage == 3 && (
-          <Media setStage={setStage} stage={stage} setFile={setFiles} />
+        {stage == 3 ? (
+          <Media
+            setStage={setStage}
+            stage={stage}
+            setFile={setFiles}
+            loading={false}
+          />
+        ) : (
+          <></>
         )}
-        {stage == 4 && (
-          <div className="pt-8 text-2xl font-semibold">
-            Your video is being generated!
+        {stage == 4 ? (
+          <Media
+            setStage={setStage}
+            stage={stage}
+            setFile={setFiles}
+            loading={true}
+          />
+        ) : (
+          <></>
+        )}
+        {stage == 5 && <Edit scriptData={scenes} setVideoUrl={setVideoUrl} />}
+        {stage == 6 && (
+          <div className="pt-8 text-2xl font-semibold text-red-500">
+            An error occured while generating your video, please refresh the
+            website and try again.
           </div>
         )}
-        {stage == 5 && <Edit scenes={scenes} />}
       </div>
       <div className="my-auto">
         {stage < 5 && (
-          <div className="grid place-items-center">
+          <div className="flex items-center justify-center">
             <Image src={imageSrc} alt="Writing" width="800" height="800" />
           </div>
         )}
+      </div>
+      <div>
         {stage === 5 && (
           <Suspense fallback={<p>Loading video...</p>}>
             <iframe
               src={videoUrl}
-              frameBorder="0"
               alt="Video generated"
               allowfullscreen="1"
               width="600"
               height="338"
-              className="rounded-lg absolute top-[227px]"
+              className="rounded-lg fixed top-[227px] left-[700px]"
             />
           </Suspense>
         )}
