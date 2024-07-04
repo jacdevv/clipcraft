@@ -64,7 +64,7 @@ export function Media({ setStage, stage, setFile, loading }) {
   };
 
   const bogusFunction = () => {
-    console.log("It's loading!");
+    console.log("Loading!");
   };
 
   const handleSubmit = async () => {

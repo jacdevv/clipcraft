@@ -195,7 +195,7 @@ export default function Home() {
         {stage == 5 && <Edit scriptData={scenes} setVideoUrl={setVideoUrl} />}
         {stage == 6 && (
           <div className="pt-8 text-2xl font-semibold text-red-500">
-            An error occured while generating your video, please refresh the
+            An error occurred while generating your video, please refresh the
             website and try again.
           </div>
         )}

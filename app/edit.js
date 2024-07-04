@@ -124,7 +124,7 @@ const Scene = ({ scene, index, setData }) => {
             </DialogTrigger>
             <DialogContent className="max-w-[1000px]">
               <DialogHeader>
-                <DialogTitle>Search a stock footage</DialogTitle>
+                <DialogTitle>Search for a stock footage</DialogTitle>
                 <DialogDescription>
                   Change your media to a stock footage in pexel.
                 </DialogDescription>
