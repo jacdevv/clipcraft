@@ -55,7 +55,6 @@ export default function Home() {
             formData.append(`media`, file);
           });
 
-          console.log(`${process.env.NEXT_PUBLIC_HOST_URL}/v1/generate-video`);
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_HOST_URL}/v1/generate-video`,
             formData,
