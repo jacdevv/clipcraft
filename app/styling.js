@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import clsx from "clsx";
 import { useState } from "react";
@@ -15,6 +16,7 @@ export function Styling({
   setDuration,
   orientation,
   setOrientation,
+  setUseStockFootage,
 }) {
   const handleChange = (value) => {
     setSelectedValue(value);
@@ -102,6 +104,13 @@ export function Styling({
           <div>40</div>
           <div>50</div>
         </div>
+      </div>
+      <div className="flex flex-col justify-center space-y-2">
+        <div className="text-xl font-bold">Use stock footage </div>
+        <Checkbox
+          onChange={(checked) => setUseStockFootage(checked)}
+          checked={useStockFootage}
+        />
       </div>
       <Button
         onClick={() => {
