@@ -63,6 +63,10 @@ export function Media({ setStage, stage, setFile, loading }) {
     );
   };
 
+  const bogusFunction = () => {
+    console.log("It's loading!");
+  };
+
   const handleSubmit = async () => {
     setFile(files);
     setStage(stage + 1);
@@ -103,7 +107,7 @@ export function Media({ setStage, stage, setFile, loading }) {
             type="file"
             multiple
             accept="image/*,video/*"
-            onChange={handleMediaUpload}
+            onChange={!loading ? handleMediaUpload : bogusFunction}
           />
         </div>
         <div className="grid grid-cols-4 gap-2 w-full h-[400px] bg-secondary my-4 rounded-lg p-2">
@@ -129,7 +133,7 @@ export function Media({ setStage, stage, setFile, loading }) {
           <div role="status">
             <svg
               aria-hidden="true"
-              class="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-500  "
+              className="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-500  "
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +147,7 @@ export function Media({ setStage, stage, setFile, loading }) {
                 fill="currentFill"
               />
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         )}
       </Button>

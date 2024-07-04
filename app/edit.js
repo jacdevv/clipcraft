@@ -244,6 +244,10 @@ export function Edit({ scriptData, setVideoUrl }) {
         {data.script.scenes.map((scene, index) => (
           <Scene key={index} scene={scene} index={index} setData={setData} />
         ))}
+        <div className="flex space-x-4 my-2">
+          <Button className="w-full bg-red-600">Upload To YouTube</Button>
+          <Button className="w-full bg-gray-900">Upload To TikTok</Button>
+        </div>
         <Button
           onClick={() => {
             handleEdit(data);

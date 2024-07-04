@@ -40,21 +40,21 @@ export function Styling({
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="business" id="r4" />
+            <RadioGroupItem value="travel" id="r4" />
             <Label htmlFor="r4" className="text-lg">
-              Business
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="educational" id="r5" />
-            <Label htmlFor="r5" className="text-lg">
-              Educational
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="travel" id="r2" />
-            <Label htmlFor="r2" className="text-lg">
               Travel
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="journalistic" id="r5" />
+            <Label htmlFor="r5" className="text-lg">
+              Journalistic
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="educational" id="r2" />
+            <Label htmlFor="r2" className="text-lg">
+              Educational
             </Label>
           </div>
           <div className="flex items-center space-x-2">
@@ -83,7 +83,9 @@ export function Styling({
             </Label>
           </div>
         </RadioGroup>
-        <h1 className="text-2xl font-bold py-4">Pick a duration (Minutes)</h1>
+        <h1 className="text-2xl font-bold py-4">
+          Pick a duration estimate (Seconds)
+        </h1>
         <div className="flex space-x-4 justify-center items-center">
           <Slider
             defaultValue={[5]}
@@ -94,11 +96,11 @@ export function Styling({
           />
         </div>
         <div className="flex justify-between py-4">
-          <div>0</div>
-          <div>5</div>
           <div>10</div>
-          <div>15</div>
           <div>20</div>
+          <div>30</div>
+          <div>40</div>
+          <div>50</div>
         </div>
       </div>
       <Button
