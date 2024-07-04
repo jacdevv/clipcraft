@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Roboto({ subsets: ["latin"], weight: ["100", "400", "700"] });
 
 export const metadata = {
-  title: "Niveo",
+  title: "ClipCraft",
   description: "A video editor powered by AI",
 };
 
