@@ -178,6 +178,7 @@ export default function Home() {
             setDuration={setDuration}
             orientation={orientation}
             setOrientation={setOrientation}
+            setUseStockFootage={useStockFootage}
             setUseStockFootgae={setUseStockFootgae}
           />
         )}

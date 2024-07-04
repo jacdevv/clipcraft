@@ -16,6 +16,7 @@ export function Styling({
   setDuration,
   orientation,
   setOrientation,
+  useStockFootage,
   setUseStockFootage,
 }) {
   const handleChange = (value) => {
