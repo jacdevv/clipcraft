@@ -13,7 +13,9 @@ export function Description({
   return (
     <div className="flex flex-col justify-between h-full">
       <div>
-        <h1 className="text-2xl font-bold py-4">What's your video's title?</h1>
+        <h1 className="text-2xl font-bold py-4">
+          What&apos;s your video&apos;s title?
+        </h1>
         <Input
           placeholder="Tokyo Marketing Content"
           value={title}
