@@ -225,13 +225,9 @@ export function Edit({ scriptData, setVideoUrl }) {
     data.script.musicInput = useMusic;
     console.log(data);
     axios
-      .post(
-        `${process.env.NEXT_PUBLIC_HOST_URL}/v1/generate-video` +
-          "/v1/edit-video",
-        {
-          scenes: data.script,
-        }
-      )
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/v1/edit-video`, {
+        scenes: data.script,
+      })
       .then(function (response) {
         console.log("Edited video signed URL:", response.data.signed_url);
         setVideoUrl(response.data.signed_url);
