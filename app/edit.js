@@ -223,10 +223,10 @@ export function Edit({ scriptData, setVideoUrl }) {
     delete data.signed_url;
     data.script.subtitleInput = useSubtitles;
     data.script.musicInput = useMusic;
-    console.log(data);
+    console.log(data.script);
     axios
-      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/v1/edit-video`, {
-        scenes: data.script,
+      .post(`${process.env.NEXT_PUBLIC_HOST_URL}/v1/edit-video`, data.script, {
+        withCredentials: true,
       })
       .then(function (response) {
         console.log("Edited video signed URL:", response.data.signed_url);

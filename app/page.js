@@ -41,7 +41,6 @@ export default function Home() {
   useEffect(() => {
     if (stage == 4) {
       console.info(title, description, template, duration, useStockFootage);
-      console.log("Host URL:", process.env.NEXT_PUBLIC_HOST_URL);
       const uploadData = async () => {
         try {
           setLoading(true);
@@ -62,6 +61,7 @@ export default function Home() {
               headers: {
                 "Content-Type": "multipart/form-data",
               },
+              withCredentials: true,
             }
           );
 
