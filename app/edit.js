@@ -158,7 +158,7 @@ const Scene = ({ scene, index, setData }) => {
                             newScenes[index] = {
                               ...newScenes[index],
                               media_url: photo.src.medium,
-                              type: "stock_image",
+                              type: "stock_photo",
                               edited: "true",
                             };
                             return {
