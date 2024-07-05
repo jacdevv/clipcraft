@@ -218,6 +218,7 @@ export function Edit({ scriptData, setVideoUrl }) {
   const [data, setData] = useState(scriptData);
   const [useSubtitles, setUseSubtitles] = useState(true);
   const [useMusic, setUseMusic] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleEdit = (data) => {
     delete data.signed_url;
@@ -263,14 +264,14 @@ export function Edit({ scriptData, setVideoUrl }) {
             <p>Add subtitles</p>
             <Checkbox
               checked={useSubtitles}
-              onChange={(checked) => setUseSubtitles(checked)}
+              onChange={() => setUseSubtitles(!useMusic)}
             />
           </div>
           <div className="flex space-x-4 items-center justify-between w-64">
             <p>Use music</p>
             <Checkbox
               checked={useMusic}
-              onChange={(checked) => setUseMusic(checked)}
+              onChange={() => setUseMusic(!usemusic)}
             />
           </div>
         </div>
