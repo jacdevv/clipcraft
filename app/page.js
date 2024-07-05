@@ -24,7 +24,6 @@ export default function Home() {
   const [description, setDescription] = useState("");
   const [template, setTemplate] = useState("promotional");
   const [duration, setDuration] = useState(5);
-  const [orientation, setOrientation] = useState("landscape");
   const [useStockFootage, setUseStockFootgae] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -41,14 +40,7 @@ export default function Home() {
 
   useEffect(() => {
     if (stage == 4) {
-      console.info(
-        title,
-        description,
-        template,
-        duration,
-        orientation,
-        useStockFootage
-      );
+      console.info(title, description, template, duration, useStockFootage);
       const uploadData = async () => {
         try {
           setLoading(true);
@@ -57,7 +49,6 @@ export default function Home() {
           formData.append("description", description);
           formData.append("template", template);
           formData.append("duration", duration);
-          formData.append("orientation", orientation);
           formData.append("use_stock_media", useStockFootage);
           files.forEach((file) => {
             formData.append(`media`, file);
@@ -176,8 +167,6 @@ export default function Home() {
             setSelectedValue={setTemplate}
             duration={duration}
             setDuration={setDuration}
-            orientation={orientation}
-            setOrientation={setOrientation}
             setUseStockFootage={useStockFootage}
             setUseStockFootgae={setUseStockFootgae}
           />

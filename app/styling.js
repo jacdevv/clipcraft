@@ -14,8 +14,6 @@ export function Styling({
   setSelectedValue,
   duration,
   setDuration,
-  orientation,
-  setOrientation,
   useStockFootage,
   setUseStockFootage,
 }) {
@@ -25,10 +23,6 @@ export function Styling({
 
   const handleDuration = (value) => {
     setDuration(value);
-  };
-
-  const handleOrientation = (value) => {
-    setOrientation(value.toLowerCase());
   };
 
   return (
@@ -67,25 +61,6 @@ export function Styling({
             </Label>
           </div>
         </RadioGroup>
-        <h1 className="text-2xl font-bold py-4">Select an orientation</h1>
-        <RadioGroup
-          value={orientation}
-          onValueChange={handleOrientation}
-          className="flex space-x-4"
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="landscape" id="r1" />
-            <Label htmlFor="r1" className="text-lg">
-              Landscape
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="potrait" id="r4" />
-            <Label htmlFor="r4" className="text-lg">
-              Potrait
-            </Label>
-          </div>
-        </RadioGroup>
         <h1 className="text-2xl font-bold py-4">
           Pick a duration estimate (Seconds)
         </h1>
@@ -105,14 +80,15 @@ export function Styling({
           <div>40</div>
           <div>50</div>
         </div>
+        <div className="flex flex-col justify-center space-y-2">
+          <div className="text-xl font-bold">Use stock footage </div>
+          <Checkbox
+            onChange={(checked) => setUseStockFootage(checked)}
+            checked={useStockFootage}
+          />
+        </div>
       </div>
-      <div className="flex flex-col justify-center space-y-2">
-        <div className="text-xl font-bold">Use stock footage </div>
-        <Checkbox
-          onChange={(checked) => setUseStockFootage(checked)}
-          checked={useStockFootage}
-        />
-      </div>
+
       <Button
         onClick={() => {
           setStage(stage + 1);
