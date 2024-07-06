@@ -153,13 +153,13 @@ export default function Home() {
         <div>
           {stage === 5 && (
             <Suspense fallback={<p>Loading video...</p>}>
-              <iframe
+              <video
                 src={videoUrl}
                 alt="Video generated"
-                allowfullscreen="1"
                 width="380"
                 height="200"
-                className="rounded-lg md:hidden mx-auto"
+                className="rounded-lg mx-auto md:hidden"
+                controls
               />
             </Suspense>
           )}
@@ -221,7 +221,7 @@ export default function Home() {
           </div>
         )}
       </div>
-      <div>
+      <div className="hidden md:block">
         {stage === 5 && (
           <Suspense fallback={<p>Loading video...</p>}>
             <iframe
