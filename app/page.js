@@ -81,15 +81,15 @@ export default function Home() {
   }, [stage]);
 
   return (
-    <main className="w-screen h-screen grid grid-cols-2">
-      <div className="flex flex-col space-y-4 p-10">
+    <main className="w-screen h-screen grid grid-cols-1 md:grid-cols-2">
+      <div className="flex flex-col space-y-4 p-5 md:p-10">
         <div className="flex space-x-1">
           <div>✨</div>
           <h1 className="text-gray-500 font-semibold text-lg">
             Generate Content
           </h1>
         </div>
-        <div className="flex items-center">
+        <div className="flex flex-col md:flex-row mx-auto items-left md:items-center space-y-2">
           <div className="space-x-2 flex items-center">
             <div
               className={clsx(
@@ -104,7 +104,7 @@ export default function Home() {
             </div>
             <div className="font-semibold pr-4">Description</div>
           </div>
-          <div className="h-[1px] w-8 bg-gray-200 mr-4"></div>
+          <div className="h-[1px] w-8 bg-gray-200 mr-4 hidden md:block"></div>
           <div className="space-x-2 flex items-center">
             <div
               className={clsx(
@@ -119,7 +119,7 @@ export default function Home() {
             </div>
             <div className="font-semibold pr-4">Template</div>
           </div>
-          <div className="h-[1px] w-8 bg-gray-200 mr-4"></div>
+          <div className="h-[1px] w-8 bg-gray-200 mr-4 hidden md:block"></div>
           <div className="space-x-2 flex items-center">
             <div
               className={clsx(
@@ -134,7 +134,7 @@ export default function Home() {
             </div>
             <div className="font-semibold pr-4">Media</div>
           </div>
-          <div className="h-[1px] w-8 bg-gray-200 mr-4"></div>
+          <div className="h-[1px] w-8 bg-gray-200 mr-4 hidden md:block"></div>
           <div className="space-x-2 flex items-center">
             <div
               className={clsx(
@@ -149,6 +149,20 @@ export default function Home() {
             </div>
             <div className="font-semibold pr-4">Edit</div>
           </div>
+        </div>
+        <div>
+          {stage === 5 && (
+            <Suspense fallback={<p>Loading video...</p>}>
+              <iframe
+                src={videoUrl}
+                alt="Video generated"
+                allowfullscreen="1"
+                width="380"
+                height="200"
+                className="rounded-lg md:hidden mx-auto"
+              />
+            </Suspense>
+          )}
         </div>
         {stage == 1 && (
           <Description
@@ -195,12 +209,12 @@ export default function Home() {
         {stage == 5 && <Edit scriptData={scenes} setVideoUrl={setVideoUrl} />}
         {stage == 6 && (
           <div className="pt-8 text-2xl font-semibold text-red-500">
-            An error occurred while generating your video, please refresh the
-            website and try again.
+            A network error occured while generating your video, please refresh
+            the page and try again.
           </div>
         )}
       </div>
-      <div className="my-auto">
+      <div className="my-auto hidden md:block">
         {stage < 5 && (
           <div className="flex items-center justify-center">
             <Image src={imageSrc} alt="Writing" width="800" height="800" />
