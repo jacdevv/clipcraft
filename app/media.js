@@ -24,7 +24,10 @@ export function Media({ setStage, stage, setFile, loading }) {
         const reader = new FileReader();
         reader.onloadend = () => {
           newMedia.push({ type: "image", src: reader.result });
-          if (newMedia.length === selectedFiles.length) {
+          if (
+            newMedia.length + media.length ===
+            selectedFiles.length + media.length
+          ) {
             setMedia((prevMedia) => [...prevMedia, ...newMedia]);
             setFiles((prevFiles) => [...prevFiles, ...newFiles]);
           }
@@ -44,7 +47,10 @@ export function Media({ setStage, stage, setFile, loading }) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           const thumbnail = canvas.toDataURL("image/png");
           newMedia.push({ type: "video", src: thumbnail });
-          if (newMedia.length === selectedFiles.length) {
+          if (
+            newMedia.length + media.length ===
+            selectedFiles.length + media.length
+          ) {
             setMedia((prevMedia) => [...prevMedia, ...newMedia]);
             setFiles((prevFiles) => [...prevFiles, ...newFiles]);
           }

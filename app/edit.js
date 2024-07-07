@@ -267,14 +267,14 @@ export function Edit({ scriptData, setVideoUrl }) {
             <p>Add subtitles</p>
             <Checkbox
               checked={useSubtitles}
-              onChange={(checked) => setUseSubtitles(!checked)}
+              onCheckedChange={(checked) => setUseSubtitles(checked)}
             />
           </div>
           <div className="flex space-x-4 items-center justify-between w-64">
             <p>Use music</p>
             <Checkbox
               checked={useMusic}
-              onChange={(checked) => setUseMusic(checked)}
+              onCheckedChange={(checked) => setUseMusic(checked)}
             />
           </div>
         </div>
