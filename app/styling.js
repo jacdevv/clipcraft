@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import clsx from "clsx";
-import { useState } from "react";
 
 const { Label } = require("@/components/ui/label");
 const { RadioGroup, RadioGroupItem } = require("@/components/ui/radio-group");
@@ -80,7 +79,7 @@ export function Styling({
           <div>40</div>
           <div>50</div>
         </div>
-        <div className="flex flex-col justify-center space-y-2">
+        <div className="flex items-center space-x-4">
           <div className="text-xl font-bold">Use stock footage </div>
           <Checkbox
             onChange={(checked) => setUseStockFootage(checked)}

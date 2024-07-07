@@ -154,13 +154,14 @@ export default function Home() {
           {stage === 5 && (
             <Suspense fallback={<p>Loading video...</p>}>
               <video
-                src={videoUrl}
-                alt="Video generated"
                 width="380"
                 height="200"
                 className="rounded-lg mx-auto md:hidden"
                 controls
-              />
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser is outdated.
+              </video>
             </Suspense>
           )}
         </div>
@@ -224,14 +225,23 @@ export default function Home() {
       <div className="hidden md:block">
         {stage === 5 && (
           <Suspense fallback={<p>Loading video...</p>}>
-            <iframe
+            {/* <iframe
               src={videoUrl}
               alt="Video generated"
               allowfullscreen="1"
               width="600"
               height="338"
               className="rounded-lg fixed top-[227px] left-[700px]"
-            />
+            /> */}
+            <video
+              className="rounded-lg fixed top-[227px] left-[700px]"
+              controls
+              width="600"
+              height="338"
+            >
+              <source src={videoUrl} type="video/mp4" />
+              Your browser is outdated.
+            </video>
           </Suspense>
         )}
       </div>
