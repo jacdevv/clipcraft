@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea_editor";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Scene = ({ scene, index, setData }) => {
@@ -278,6 +279,9 @@ export function Edit({ scriptData, setVideoUrl }) {
             />
           </div>
         </div>
+        <Link href={data.signed_url}>
+          <Button>Download</Button>
+        </Link>
         <Button
           onClick={() => {
             handleEdit(data);
@@ -285,7 +289,7 @@ export function Edit({ scriptData, setVideoUrl }) {
           className="w-full h-12"
         >
           {!loading ? (
-            "Finish"
+            "Save changes"
           ) : (
             <div role="status">
               <svg
