@@ -150,21 +150,18 @@ export default function Home() {
             <div className="font-semibold pr-4">Edit</div>
           </div>
         </div>
-        <div>
-          {stage === 5 && (
-            <Suspense fallback={<p>Loading video...</p>}>
-              <iframe
-                width="380"
-                height="200"
-                className="rounded-lg mx-auto md:hidden"
-                src={videoUrl}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
-            </Suspense>
-          )}
-        </div>
+        {stage === 5 && (
+          <Suspense fallback={<p>Loading video...</p>} className="md:hidden">
+            <iframe
+              width="380"
+              height="200"
+              className="rounded-lg mx-auto md:hidden"
+              src={videoUrl}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            ></iframe>
+          </Suspense>
+        )}
         {stage == 1 && (
           <Description
             setStage={setStage}
