@@ -157,7 +157,7 @@ export default function Home() {
               height="200"
               className="rounded-lg mx-auto md:hidden"
               src={videoUrl}
-              allow="autoplay; encrypted-media"
+              allow="encrypted-media"
               allowFullScreen
             ></iframe>
           </Suspense>
