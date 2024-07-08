@@ -279,9 +279,12 @@ export function Edit({ scriptData, setVideoUrl }) {
             />
           </div>
         </div>
-        <Link href={data.signed_url} download>
+        {/* <Link
+          href={data.signed_url != undefined ? data.signed_url : "#"}
+          download
+        >
           <Button className="w-full my-2">Download</Button>
-        </Link>
+        </Link> */}
         <Button
           onClick={() => {
             handleEdit(data);
